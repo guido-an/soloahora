@@ -1,0 +1,18 @@
+<h1>CREATE PRODUCT</h1>
+{{log this}}
+<p>Welcome back {{user.username}}!</p>
+
+<form action="/auth/create-product" method="POST">
+  <input type="text" name="name" placeholder="Name*" required>
+  <input type="text" name="description" placeholder="Description">
+  <input type="number" name="price" placeholder="Price*" required>
+  <select>
+    <option value="true">Available</option>
+    <option value="false">Not Available</option>
+  </select>
+  <input type="number" name="preparationTime" placeholder="Preparation Time">
+  Time of availability
+  <input type="number" name="startRange" placeholder="From">
+  <input type="number" name="endRange" placeholder="To">
+  <button>Create product</button>
+</form>

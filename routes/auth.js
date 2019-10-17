@@ -2,7 +2,8 @@ const express = require("express");
 const passport = require('passport');
 const router = express.Router();
 const User = require("../models/User");
-
+const Product = require('../models/Product');
+const Table = require('../models/Table');
 const ensureLogin = require("connect-ensure-login");
 
 // Bcrypt to encrypt passwords
@@ -16,7 +17,7 @@ router.get("/login", (req, res, next) => {
 });
 
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/auth/private",
+  successRedirect: "/auth/create-product",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
@@ -65,16 +66,54 @@ router.post("/signup", (req, res, next) => {
 
 
 /********************
- **** get PRIVATE *****/ 
-router.get("/private", ensureLogin.ensureLoggedIn("/auth/login"), (req, res) => {
-    res.render("private", { user: req.user })
-});
-
-/********************
  **** get LOGOUT *****/ 
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
+
+
+/*****************************
+ **** get CREATE PRODUCT *****/ 
+router.get("/create-product", ensureLogin.ensureLoggedIn("/auth/login"), (req, res) => {
+  res.render("createProduct", { user: req.user })
+});
+
+/******************************
+ **** post CREATE PRODUCT *****/
+router.post('/create-product', (req, res) => {
+  Product.create(req.body)
+    .then(() => {
+      res.redirect('/menu');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+
+/************************
+ **** get ADD TABLE *****/ 
+router.get("/add-table", ensureLogin.ensureLoggedIn("/auth/login"), (req, res) => {
+  Table.find()
+  .then(tables => {
+    res.render("addTable", { tables })
+  })
+});
+
+
+/******************************
+ **** post ADD TABLE *****/
+router.post('/add-table', (req, res) => {
+  Table.create(req.body)
+    .then(() => {
+      res.redirect('/auth/add-table');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+
 
 module.exports = router;

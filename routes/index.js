@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const User = require("../models/User");
+const Product = require("../models/Product");
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -11,6 +12,19 @@ router.get('/', (req, res, next) => {
   .catch(err =>{
     console.log(err)
   })
+});
+
+
+/******************************
+ **** get MENU *****/
+router.get('/menu', (req, res) => {
+  Product.find()
+    .then(products => {
+      res.render('menu', {products});
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 module.exports = router;

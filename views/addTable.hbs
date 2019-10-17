@@ -1,0 +1,14 @@
+<h1>ADD TABLE</h1>
+<form action="/auth/add-table" method="POST">
+  <input type="text" name="name" placeholder="Table name*" required>
+  <button>Add a table</button>
+</form>
+
+<br>
+<h2>MY TABLES</h2>
+
+{{#each tables}}
+<ul>
+  <li>{{name}}</li>
+</ul>
+{{/each}}

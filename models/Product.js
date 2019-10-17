@@ -5,8 +5,8 @@ const productSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   picture: String,
-  Price: { type: Number, required: true },
-  Availability: { type: Boolean, default: true },
+  price: { type: Number, required: true },
+  availability: { type: Boolean, default: true },
   preparationTime: Number,
   startRange: Number,
   endRange: Number
