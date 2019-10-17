@@ -10,6 +10,7 @@ const orderSchema = new Schema({
     ref: 'Product',
     required: true,
   },
+  paidProducts: Array,
   status: String,
   takeway: Boolean,
   timestamps: {
